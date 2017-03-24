@@ -1,5 +1,8 @@
 import GTAOrange as API
-from OrangeWrapper import world
+from OrangeWrapper import world as _world
+from OrangeWrapper import event as _event
+from OrangeWrapper import blip as _blip
+from OrangeWrapper import marker as _marker
 
 __pool = {}
 __ehandlers = {}
@@ -14,22 +17,27 @@ class Player():
     def __init__(self, id):
         self.id = id
         
-    def attachBlip(self, name, scale, color, sprite):
-        pass
+    def attachBlip(self, name = None, scale = None, color = None, sprite = None):
+        blip = _blip.create(name if name is not None else "Player", 0, 0, 0, scale if scale is not None else 1, color if color is not None else _blip.Color.ORANGE, sprite if sprite is not None else _blip.Sprite.STANDARD)
+        blip.attachTo(self)
+        return blip
+        
+    def createBlip(self, name, x, y, z, scale = None, color = None, sprite = None):
+        return API.CreateBlipForPlayer(self.id, name, x, y, z, scale if scale is not None else 1, color if color is not None else _blip.Color.ORANGE, sprite if sprite is not None else _blip.Sprite.STANDARD)
     
-    def createBlip(self, name, x, y, z, scale, color, sprite):
-        pass
-    
-    def createMarker(self, x, y, z, h, r, blip):
-        pass
+    def createMarker(self, x, y, z, h = None, r = None, blip = None):
+        marker = _marker.create(x, y, z, h if h is not None else 1, r if r is not None else 1)
+        if blip is not None:
+            m.blip = self.createBlip("Marker", x, y, z)
+        return marker
     
     def distanceTo(self, x, y, z = None):
         if z is None:
             x1, y1, z1 = self.getPosition()
-            return world.getDistance(x1, y1, z1, x, y, z)
+            return _world.getDistance(x1, y1, z1, x, y, z)
         else:
             x1, y1 = self.getPosition()
-            return world.getDistance(x1, y1, x, y)
+            return _world.getDistance(x1, y1, x, y)
     
     def getHeading(self):
         return API.GetPlayerHeading(self.id)
@@ -37,7 +45,7 @@ class Player():
     def getID(self):
         return self.id
     
-    def getModel():
+    def getModel(self):
         return API.GetPlayerModel(self.id)
     
     def getName(self):
@@ -58,18 +66,21 @@ class Player():
         else:
             return API.GivePlayerWeapon(self.id, weapon, ammo)
             
-    def isInMarker(self, m):
-        pass
+    def isInMarker(self, marker):
+        x1, y1, z1 = self.getPosition()
+        x2, y2, z2 = marker.getPosition()
+        
+        return _world.getDistance(x1, y1, x2, y2) < 0.5 and (z1 - z2) * (z1 - z2) < (0.5 * 0.5)
     
     def removeWeapons(self):
         API.RemovePlayerWeapons(self.id)
     
     def on(self, event, cb):
         if event in __ehandlers[event].keys():
-            __ehandlers[event].append(cb)
+            self._ehandlers[event].append(_event.Event(cb))
         else:
-            __ehandlers[event] = []
-            __ehandlers[event].append(cp)
+            self._ehandlers[event] = []
+            self._ehandlers[event].append(_event.Event(cb))
     
     def sendNotification(self, msg):
         API.SendPlayerNotification(self.id, msg)
@@ -128,8 +139,13 @@ class Player():
     def enableHUD(self):
         API.DisablePlayerHud(self.id, False)
     
-    def trigger(self, event, params):
-        pass
+    def trigger(self, event, *args):
+        if event in self._ehandlers.keys():
+            for handler in self._ehandlers[event]:
+                handler.getCallback()(*args)
+    
+    def triggerClient(self, event, *args):
+        API.ClientEvent(event, self.id, *args)
 
 def broadcast(msg, color):
     API.BroadcastClientMessage(msg, color)
@@ -139,9 +155,12 @@ def exists(id):
     return True
 
 def deleteByID(id):
+    global __pool
     del __pool[id]
 
 def getByID(id):
+    global __pool
+    
     if id in __pool.keys():
         return __pool[id]
     elif isinstance(id, int) and exists(id):
@@ -158,32 +177,34 @@ def getByName(name):
 
 def on(event, cb):
     if event in __ehandlers.keys():
-        __ehandlers[event].append(cb)
+        __ehandlers[event].append(_event.Event(cb))
     else:
         __ehandlers[event] = []
-        __ehandlers[event].append(cb)
+        __ehandlers[event].append(_event.Event(cb))
 
-def trigger(event, params):
-    pass
+def trigger(event, *args):
+    if event in __ehandlers.keys():
+        for handler in __ehandlers[event]:
+            handler.getCallback()(*args)
 
-def triggerClient(event, params):
-    pass
+def triggerClient(event, *args):
+    API.ClientEvent(event, -1, *args)
 
-def _onConnect(player, ip):
+def _onConnect(*args):
     if "connect" in __ehandlers.keys():
-        for cb in __ehandlers["connect"]:
-            cb(player, ip)
+        for event in __ehandlers["connect"]:
+            event.getCallback()(*args)
 
-def _onDisconnect(player, reason):
+def _onDisconnect(*args):
     if "disconnect" in __ehandlers.keys():
-        for cb in __ehandlers["disconnect"]:
-            cb(player, reason)
+        for event in __ehandlers["disconnect"]:
+            event.getCallback()(*args)
 
 
-def _onCommand(player, command):
+def _onCommand(*args):
     if "command" in __ehandlers.keys():
-        for cb in __ehandlers["command"]:
-            cb(player, command)
+        for event in __ehandlers["command"]:
+            event.getCallback()(*args)
 
 API.AddServerEvent(_onConnect, "PlayerConnect")
 API.AddServerEvent(_onDisconnect, "PlayerDisconnect")
