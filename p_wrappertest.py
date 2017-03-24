@@ -61,6 +61,10 @@ def onPlayerCommand(player, command):
         player.setArmour(float(command[1]))
     elif(command[0] == "/getarmour"):
         player.chatMsg(str(player.getArmour()))
+    elif(command[0] == "/playerblip"):
+        player.attachBlip(player.getName() + "'s super special blip", 2)
+    elif(command[0] == "/nullblip"):
+        player.createBlip("0|0|0", 0, 0, 0, 3)
     elif(command[0] == "/setcolor"):
         val = API.SetPlayerColor(player, int(command[1]))
         print(val)
