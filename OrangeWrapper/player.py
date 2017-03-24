@@ -7,6 +7,9 @@ __ehandlers = {}
 class Player():
 
     id = None
+    meta = {}
+    
+    _ehandlers = {}
     
     def __init__(self, id):
         self.id = id
