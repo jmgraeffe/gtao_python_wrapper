@@ -34,6 +34,9 @@ class Text():
     def getText(self):
         pass
     
+    def attachToVeh(veh, x = 0, y = 0, z = 0):
+        pass
+    
 def create(text, x, y, z, tcolor, ocolor, size):
     pass
 
