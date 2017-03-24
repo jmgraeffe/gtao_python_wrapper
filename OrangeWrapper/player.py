@@ -161,11 +161,13 @@ def deleteByID(id):
 def getByID(id):
     global __pool
     
-    if id in __pool.keys():
-        return __pool[id]
-    elif isinstance(id, int) and exists(id):
-        __pool[id] = Player(id)
-        return __pool[id]
+    if isinstance(id, int):
+        if exists(id):
+            if id not in __pool.keys():
+                __pool[id] = Player(id)
+            return __pool[id]
+        else:
+            return False
     else:
         raise TypeError('Player ID must be an integer')
 
