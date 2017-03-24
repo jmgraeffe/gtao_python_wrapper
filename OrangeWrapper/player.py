@@ -193,20 +193,13 @@ def triggerClient(event, *args):
     API.ClientEvent(event, -1, *args)
 
 def _onConnect(*args):
-    if "connect" in __ehandlers.keys():
-        for event in __ehandlers["connect"]:
-            event.getCallback()(*args)
-
+    trigger("connect", *args)
+    
 def _onDisconnect(*args):
-    if "disconnect" in __ehandlers.keys():
-        for event in __ehandlers["disconnect"]:
-            event.getCallback()(*args)
-
+    trigger("disconnect", *args)
 
 def _onCommand(*args):
-    if "command" in __ehandlers.keys():
-        for event in __ehandlers["command"]:
-            event.getCallback()(*args)
+    trigger("command", *args)
 
 API.AddServerEvent(_onConnect, "PlayerConnect")
 API.AddServerEvent(_onDisconnect, "PlayerDisconnect")
