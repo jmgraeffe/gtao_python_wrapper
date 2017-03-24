@@ -7,6 +7,8 @@ from OrangeWrapper import marker as _marker
 __pool = {}
 __ehandlers = {}
 
+#attachOwnBlip
+
 class Player():
 
     id = None
