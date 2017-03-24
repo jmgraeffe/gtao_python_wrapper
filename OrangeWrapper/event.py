@@ -1,22 +1,22 @@
 __pool = {}
-__current = 0
+_current = 0
 
-class Text():
+class Event():
 
     id = None
     
     _cb = None
     
     def __init__(self, cb):
-        global __current
+        global _current
         
         self._cb = cb
-        self.id = __current
+        self.id = _current
         
-        __current += 1
+        _current += 1
     
-    def cb(params):
-        pass
+    def getCallback(self):
+        return self._cb
     
-    def cancel():
+    def cancel(self):
         pass
