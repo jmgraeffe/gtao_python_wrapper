@@ -104,9 +104,9 @@ class Player():
     
     def setInfoMsg(self, msg = None):
         if msg is None:
-            API.SetPlayerInfoMsg(self.id, False)
+            API.UnsetInfoMsg(self.id)
         else:
-            API.SetPlayerInfoMsg(self.id, msg)
+            API.SetInfoMsg(self.id, msg)
     
     def setIntoVeh(self, veh, seat = None):
         if seat is None:
