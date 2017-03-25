@@ -92,7 +92,7 @@ class Player():
     
     def setArmour(self, armour):
         API.SetPlayerArmour(self.id, armour)
-        
+    
     def setHeading(self, heading):
         API.SetPlayerHeading(self.id, heading)
         
@@ -147,7 +147,7 @@ class Player():
                 handler.getCallback()(*args)
     
     def triggerClient(self, event, *args):
-        API.ClientEvent(event, self.id, *args)
+        API.TriggerClientEvent(self.id, event, *args)
 
 def broadcast(msg, color):
     API.BroadcastClientMessage(msg, color)
@@ -192,7 +192,7 @@ def trigger(event, *args):
             handler.getCallback()(*args)
 
 def triggerClient(event, *args):
-    API.ClientEvent(event, -1, *args)
+    API.TriggerClientEvent(-1, event, *args)
 
 def _onConnect(*args):
     trigger("connect", *args)
