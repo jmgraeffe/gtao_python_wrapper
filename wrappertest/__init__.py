@@ -122,11 +122,11 @@ def onPlayerCommand(player, command):
         print(' '.join(command))
     return True
 
-def onPlayerEnteredVehicle(p0, p1):
-    print('Vehicle:playerentered | ' + str(p0) + ' | ' + str(p1))
+def onPlayerEnteredVehicle(player, veh):
+    print('Vehicle:playerentered | ' + str(player.getID()) + ' | ' + str(veh.getID()))
 
-def onPlayerLeftVehicle(p0, p1):
-    print('Vehicle:playerleft | ' + str(p0) + ' | ' + str(p1))
+def onPlayerLeftVehicle(player, veh):
+    print('Vehicle:playerleft | ' + str(player.getID()) + ' | ' + str(veh.getID()))
 
 Player.on("connect", onPlayerConnect)
 Player.on("command", onPlayerCommand)

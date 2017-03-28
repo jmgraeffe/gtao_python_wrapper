@@ -116,10 +116,20 @@ def trigger(event, *args):
             handler.getCallback()(*args)
 
 def _onPlayerEntered(*args):
+    # replace first arg (player id) with player obj
+    args = list(args)
+    args[0] = _player.getByID(args[0])
+    args[1] = getByID(args[1])
+    
     trigger("playerentered", *args)
     _player.trigger("enteredvehicle", *args)
 
 def _onPlayerLeft(*args):
+    # replace first arg (player id) with player obj
+    args = list(args)
+    args[0] = _player.getByID(args[0])
+    args[1] = getByID(args[1])
+    
     trigger("playerleft", *args)
     _player.trigger("leftvehicle", *args)
 
