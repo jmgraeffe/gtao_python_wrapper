@@ -1,61 +1,76 @@
 import GTAOrange as API
-from OrangeWrapper import world
-
+from OrangeWrapper import world as _world
+from OrangeWrapper import vehicle as _vehicle
+from OrangeWrapper import player as _player
+ 
 __pool = {}
 
 class Blip():
 
     id = None
+    is_global = None
     
     _ehandlers = {}
     
-    def __init__(self, id):
+    def __init__(self, id, is_global):
         self.id = id
+        self.is_global = is_global
+        
+    def attachTo(self, dest):
+        if isinstance(dest, _player.Player):
+            API.AttachBlipToPlayer(self.id, dest.id)
+            return True
+        elif isinstance(dest, _vehicle.Vehicle):
+            API.AttachBlipToVehicle(self.id, dest.id)
+            return True
+        else
+            return False
     
-    def attachTo(dest):
-        pass
+    def delete(self):
+        API.DeleteBlip(self.id)
+        del __pool[self.id]
     
-    def delete():
-        pass
-    
-    def distanceTo(x, y, z):
-        pass
-    
-    def getID():
-        pass
-    
-    def getPosition():
-        pass
-    
-    def on():
-        pass
-    
-    def setColor(color):
-        pass
-    
-    def setRoute(route):
-        pass
-    
-    def setScale(scale):
-        pass
-    
-    def setSprite(sprite):
-        pass
-    
-    def setShortRange(toggle):
-        pass
-    
-    def trigger(event, params):
-        pass
-    
-def create(name, x, y, z, scale, color, sprite):
-    pass
+    def distanceTo(self, x, y, z = None):
+        if z is not None:
+            x1, y1, z1 = self.getPosition()
+            return _world.getDistance(x1, y1, z1, x, y, z)
+        else:
+            x1, y1 = self.getPosition()
+            return _world.getDistance(x1, y1, x, y)
 
-def on(event, cb):
-    pass
+    def getID(self):
+        return self.id
+    
+    def getPosition(self):
+        return API.GetBlipCoords(self.id)
+    
+    def setColor(self, color):
+        API.SetBlipColor(self.id, color)
+    
+    def setRoute(self, route):
+        API.SetBlipRoute(self.id, route)
+    
+    def setScale(self, scale):
+        API.SetBlipScale(self.id, scale)
+    
+    def setSprite(self, sprite):
+        API.SetBlipSprite(self.id, sprite)
+    
+    def setShortRange(self, toggle):
+        API.SetBlipShortRange(self.id, toggle)
+    
+def create(name, x, y, z, scale = 1, color = Color.ORANGE, sprite = Sprite.STANDARD):
+    return Blip(API.CreateBlipForAll(name, x, y, z, color, sprite), True)
 
-def trigger(event, params):
-    pass
+def getByID(id):
+    global __pool
+    
+    if isinstance(id, int):
+        if id in __pool.keys():
+            return __pool[id]
+        return False
+    else:
+        raise TypeError('Vehicle ID must be an integer')
 
 class Color():
     WHITE = 0
