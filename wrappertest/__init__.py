@@ -1,6 +1,6 @@
-import GTAOrange as API
-from OrangeWrapper import player as Player
-from OrangeWrapper import vehicle as Vehicle
+import __orange__ as API
+from GTAOrange import player as Player
+from GTAOrange import vehicle as Vehicle
 
 def _sendPlayerList(target):
     players = Player.getAll()
