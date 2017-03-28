@@ -12,9 +12,8 @@ def onEventStart(bla, bli):
     return True
 
 def onPlayerConnect(player, ip):
-    print('Player:connect | ' + str(player) + ' | ' + ip)
+    print('Player:connect | ' + str(player.getName()) + ' | ' + ip)
     
-    player = Player.getByID(player)
     player.setPosition(78.9911, -1947.52, 21.1741)
     
     # own attributes
@@ -26,10 +25,9 @@ def onPlayerDisconnect(player, reason):
     print('Player:disconnect | ' + str(player) + ' | ' + str(reason))
     
 def onPlayerCommand(player, command):
-    print('Player:command | ' + str(player) + ' | ' + command)
+    print('Player:command | ' + str(player.getID()) + ' | ' + command)
 
     command = command.split()
-    player = Player.getByID(player)
     
     # player commands
     
