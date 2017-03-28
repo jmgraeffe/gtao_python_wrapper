@@ -71,7 +71,6 @@ class Vehicle():
     
 def create(model, x, y, z, h):
     veh = Vehicle(API.CreateVehicle(model, x, y, z, h))
-    print(veh.id)
     return veh
 
 def deleteByID(id):
@@ -87,9 +86,7 @@ def deleteByID(id):
         raise TypeError('Vehicle ID must be an integer')
 
 def exists(id):
-    #TODO
-    #return API.VehicleExists(id)
-    return True
+    return API.VehicleExists(id)
 
 def getByID(id):
     global __pool
