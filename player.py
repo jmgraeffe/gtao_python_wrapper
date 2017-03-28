@@ -1,8 +1,6 @@
 import __orange__ as API
 from GTAOrange import world as _world
 from GTAOrange import event as _event
-from GTAOrange import blip as _blip
-from GTAOrange import marker as _marker
 
 __pool = {}
 __ehandlers = {}
@@ -20,14 +18,19 @@ class Player():
         self.id = id
         
     def attachBlip(self, name = None, scale = None, color = None, sprite = None):
+        from GTAOrange import blip as _blip
+        
         blip = _blip.create(name if name is not None else "Player", 0, 0, 0, scale if scale is not None else 1, color if color is not None else _blip.Color.ORANGE, sprite if sprite is not None else _blip.Sprite.STANDARD)
         blip.attachTo(self)
         return blip
         
     def createBlip(self, name, x, y, z, scale = None, color = None, sprite = None):
+        from GTAOrange import blip as _blip
         return API.CreateBlipForPlayer(self.id, name, x, y, z, scale if scale is not None else 1, color if color is not None else _blip.Color.ORANGE, sprite if sprite is not None else _blip.Sprite.STANDARD)
     
     def createMarker(self, x, y, z, h = None, r = None, blip = None):
+        from GTAOrange import marker as _marker
+    
         marker = _marker.create(x, y, z, h if h is not None else 1, r if r is not None else 1)
         if blip is not None:
             m.blip = self.createBlip("Marker", x, y, z)
