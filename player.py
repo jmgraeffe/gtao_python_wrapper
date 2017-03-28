@@ -17,21 +17,21 @@ class Player():
     def __init__(self, id):
         self.id = id
         
-    def attachBlip(self, name = None, scale = None, color = None, sprite = None):
+    def attachBlip(self, name = "Player", scale = 1, color = None, sprite = None):
         from GTAOrange import blip as _blip
         
-        blip = _blip.create(name if name is not None else "Player", 0, 0, 0, scale if scale is not None else 1, color if color is not None else _blip.Color.ORANGE, sprite if sprite is not None else _blip.Sprite.STANDARD)
+        blip = _blip.create(name, 0, 0, 0, scale, color if color is not None else _blip.Color.ORANGE, sprite if sprite is not None else _blip.Sprite.STANDARD)
         blip.attachTo(self)
         return blip
         
-    def createBlip(self, name, x, y, z, scale = None, color = None, sprite = None):
+    def createBlip(self, name, x, y, z, scale = 1, color = None, sprite = None):
         from GTAOrange import blip as _blip
-        return API.CreateBlipForPlayer(self.id, name, x, y, z, scale if scale is not None else 1, color if color is not None else _blip.Color.ORANGE, sprite if sprite is not None else _blip.Sprite.STANDARD)
+        return API.CreateBlipForPlayer(self.id, name, x, y, z, scale, color if color is not None else _blip.Color.ORANGE, sprite if sprite is not None else _blip.Sprite.STANDARD)
     
-    def createMarker(self, x, y, z, h = None, r = None, blip = None):
+    def createMarker(self, x, y, z, h = 1, r = 1, blip = None):
         from GTAOrange import marker as _marker
     
-        marker = _marker.create(x, y, z, h if h is not None else 1, r if r is not None else 1)
+        marker = _marker.create(x, y, z, h, r)
         if blip is not None:
             m.blip = self.createBlip("Marker", x, y, z)
         return marker
