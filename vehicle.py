@@ -86,8 +86,9 @@ def deleteByID(id):
         raise TypeError('Vehicle ID must be an integer')
 
 def exists(id):
-    return API.VehicleExists(id)
-
+    #return API.VehicleExists(id)
+    return True
+    
 def getByID(id):
     global __pool
     

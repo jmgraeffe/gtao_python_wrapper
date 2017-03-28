@@ -156,8 +156,9 @@ def broadcast(msg, color):
     API.BroadcastClientMessage(msg, color)
     
 def exists(id):
-    return API.PlayerExists(id)
-
+    #return API.PlayerExists(id)
+    return True
+    
 def deleteByID(id):
     global __pool
     del __pool[id]
