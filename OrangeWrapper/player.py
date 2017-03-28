@@ -195,12 +195,24 @@ def triggerClient(event, *args):
     API.TriggerClientEvent(-1, event, *args)
 
 def _onConnect(*args):
+    # replace first arg (player id) with player obj
+    args = list(args)
+    args[0] = getByID(args[0])
+    
     trigger("connect", *args)
     
 def _onDisconnect(*args):
+    # replace first arg (player id) with player obj
+    args = list(args)
+    args[0] = getByID(args[0])
+    
     trigger("disconnect", *args)
 
 def _onCommand(*args):
+    # replace first arg (player id) with player obj
+    args = list(args)
+    args[0] = getByID(args[0])
+    
     trigger("command", *args)
 
 API.AddServerEvent(_onConnect, "PlayerConnect")
