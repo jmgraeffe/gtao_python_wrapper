@@ -103,6 +103,9 @@ def getByID(id):
     else:
         raise TypeError('Vehicle ID must be an integer')
 
+def getAll():
+    return __pool
+
 def on(event, cb):
     if event in __ehandlers.keys():
         __ehandlers[event].append(_event.Event(cb))
