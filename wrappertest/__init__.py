@@ -2,9 +2,12 @@ import GTAOrange as API
 from OrangeWrapper import player as Player
 from OrangeWrapper import vehicle as Vehicle
 
-def dump(obj):
-    for attr in dir(obj):
-        print("obj.%s = %s" % (attr, getattr(obj, attr)))
+def _sendPlayerList(target):
+    players = Player.getAll()
+    target.chatMsg("Players:")
+    
+    for key, player in players.items():
+        target.chatMsg(player.getName())
 
 def onEventStart(bla, bli):
     print(bla)
@@ -33,6 +36,8 @@ def onPlayerCommand(player, command):
     
     if(command[0] == "/setpos"):
         player.setPosition(float(command[1]), float(command[2]), float(command[3]))
+    elif(command[0] == "/players"):
+        _sendPlayerList(player)
     elif(command[0] == "/getpos"):
         x, y, z = player.getPosition()
         player.chatMsg("{:.9f}".format(x) + "|" + "{:.9f}".format(y) + "|" + "{:.9f}".format(z))

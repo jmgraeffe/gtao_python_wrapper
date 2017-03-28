@@ -179,6 +179,9 @@ def getByName(name):
             return player
     return False
 
+def getAll():
+    return __pool
+
 def on(event, cb):
     if event in __ehandlers.keys():
         __ehandlers[event].append(_event.Event(cb))
