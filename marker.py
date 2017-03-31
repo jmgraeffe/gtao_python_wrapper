@@ -1,4 +1,4 @@
-import __orange__ as API
+import __orange__
 from GTAOrange import world
 from GTAOrange import event as _event
 from GTAOrange import vehicle as _vehicle
@@ -28,7 +28,7 @@ class Marker():
         self.r = r
     
     def delete(self):
-        API.DeleteMarker(self.id)
+        __orange__.DeleteMarker(self.id)
         del __pool[self.id]
     
     def distanceTo(self, x, y, z = None):
@@ -61,7 +61,7 @@ def create(x, y, z, h = 1, r = 1, blip = None):
     from GTAOrange import blip as _blip
     global __pool
     
-    marker = Marker(API.CreateMarkerForAll(x, y, z, h, r), x, y, z, h, r)
+    marker = Marker(__orange__.CreateMarkerForAll(x, y, z, h, r), x, y, z, h, r)
     __pool[marker.id] = marker
     
     if blip is not None:
@@ -122,7 +122,7 @@ def _onVehicleLeftMarker(vehicle_id, marker_id):
     trigger("vehicleleft", vehicle)
     _vehicle.trigger("leftmarker", marker)
     
-API.AddServerEvent(_onPlayerEnteredMarker, "EnterMarker")
-API.AddServerEvent(_onPlayerLeftMarker, "LeftMarker")
-API.AddServerEvent(_onVehicleEnteredMarker, "VehEnterMarker")
-API.AddServerEvent(_onVehicleLeftMarker, "VehLeftMarker")
+__orange__.AddServerEvent(_onPlayerEnteredMarker, "EnterMarker")
+__orange__.AddServerEvent(_onPlayerLeftMarker, "LeftMarker")
+__orange__.AddServerEvent(_onVehicleEnteredMarker, "VehEnterMarker")
+__orange__.AddServerEvent(_onVehicleLeftMarker, "VehLeftMarker")

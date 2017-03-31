@@ -1,4 +1,4 @@
-import __orange__ as API
+import __orange__
 from GTAOrange import world as _world
 from GTAOrange import blip as _blip
 from GTAOrange import text as _text
@@ -49,7 +49,7 @@ class Vehicle():
         return self.id
     
     def getPosition(self):
-        return API.GetVehiclePosition(self.id)
+        return __orange__.GetVehiclePosition(self.id)
     
     def equals(self, veh):
         if isinstance(veh, Vehicle):
@@ -70,7 +70,7 @@ class Vehicle():
                 handler.getCallback()(*args)
     
 def create(model, x, y, z, h):
-    veh = Vehicle(API.CreateVehicle(model, x, y, z, h))
+    veh = Vehicle(__orange__.CreateVehicle(model, x, y, z, h))
     __pool[veh.id] = veh
     return veh
 
@@ -81,13 +81,13 @@ def deleteByID(id):
         if exists(id):
             if id in __pool.keys():
                 del __pool[id]
-            return API.DeleteVehicle(id)
+            return __orange__.DeleteVehicle(id)
         return False
     else:
         raise TypeError('Vehicle ID must be an integer')
 
 def exists(id):
-    #return API.VehicleExists(id)
+    #return __orange__.VehicleExists(id)
     return True
     
 def getByID(id):
@@ -135,5 +135,5 @@ def _onPlayerLeft(*args):
     trigger("playerleft", *args)
     _player.trigger("leftvehicle", *args)
 
-API.AddServerEvent(_onPlayerEntered, "EnterVehicle")
-API.AddServerEvent(_onPlayerLeft, "LeftVehicle")
+__orange__.AddServerEvent(_onPlayerEntered, "EnterVehicle")
+__orange__.AddServerEvent(_onPlayerLeft, "LeftVehicle")

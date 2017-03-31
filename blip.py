@@ -1,4 +1,4 @@
-import __orange__ as API
+import __orange__
 from GTAOrange import world as _world
 from GTAOrange import vehicle as _vehicle
 from GTAOrange import player as _player
@@ -18,16 +18,16 @@ class Blip():
         
     def attachTo(self, dest):
         if isinstance(dest, _player.Player):
-            API.AttachBlipToPlayer(self.id, dest.id)
+            __orange__.AttachBlipToPlayer(self.id, dest.id)
             return True
         elif isinstance(dest, _vehicle.Vehicle):
-            API.AttachBlipToVehicle(self.id, dest.id)
+            __orange__.AttachBlipToVehicle(self.id, dest.id)
             return True
         else:
             return False
     
     def delete(self):
-        API.DeleteBlip(self.id)
+        __orange__.DeleteBlip(self.id)
         del __pool[self.id]
     
     def distanceTo(self, x, y, z = None):
@@ -42,27 +42,27 @@ class Blip():
         return self.id
     
     def getPosition(self):
-        return API.GetBlipCoords(self.id)
+        return __orange__.GetBlipCoords(self.id)
     
     def setColor(self, color):
-        API.SetBlipColor(self.id, color)
+        __orange__.SetBlipColor(self.id, color)
     
     def setRoute(self, route):
-        API.SetBlipRoute(self.id, route)
+        __orange__.SetBlipRoute(self.id, route)
     
     def setScale(self, scale):
-        API.SetBlipScale(self.id, scale)
+        __orange__.SetBlipScale(self.id, scale)
     
     def setSprite(self, sprite):
-        API.SetBlipSprite(self.id, sprite)
+        __orange__.SetBlipSprite(self.id, sprite)
     
     def setShortRange(self, toggle):
-        API.SetBlipShortRange(self.id, toggle)
+        __orange__.SetBlipShortRange(self.id, toggle)
     
 def create(name, x, y, z, scale = 1.0, color = None, sprite = None):
     global __pool
     
-    blip = Blip(API.CreateBlipForAll(name, x, y, z, scale, color if color is not None else Color.ORANGE, sprite if sprite is not None else Sprite.STANDARD), True)
+    blip = Blip(__orange__.CreateBlipForAll(name, x, y, z, scale, color if color is not None else Color.ORANGE, sprite if sprite is not None else Sprite.STANDARD), True)
     __pool[blip.id] = blip
     return blip
     

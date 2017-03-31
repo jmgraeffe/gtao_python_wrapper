@@ -1,4 +1,4 @@
-import __orange__ as API
+import __orange__
 from GTAOrange import world
 
 __pool = {}

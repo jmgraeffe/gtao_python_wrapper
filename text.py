@@ -1,3 +1,4 @@
+import __orange__
 __pool = {}
 
 class Text():
@@ -22,7 +23,7 @@ class Text():
         self.size = size
     
     def delete(self):
-        API.Delete3DText(self.id)
+        __orange__.Delete3DText(self.id)
         del __pool[self.id]
         
     def getID(self):
@@ -43,7 +44,7 @@ class Text():
 def create(text, x, y, z, tcolor = 0xFFFFFFFF, ocolor = 0xFFFFFFFF, size = 20):
     global __pool
     
-    text = Text(API.Create3DText(text, x, y, z, tcolor, ocolor, size), text, x, y, z, tcolor, ocolor, size)
+    text = Text(__orange__.Create3DText(text, x, y, z, tcolor, ocolor, size), text, x, y, z, tcolor, ocolor, size)
     __pool[text.id] = text
     return text
     

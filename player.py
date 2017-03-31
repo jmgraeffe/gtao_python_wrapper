@@ -1,4 +1,4 @@
-import __orange__ as API
+import __orange__
 from GTAOrange import world as _world
 from GTAOrange import event as _event
 
@@ -26,7 +26,7 @@ class Player():
         
     def createBlip(self, name, x, y, z, scale = 1, color = None, sprite = None):
         from GTAOrange import blip as _blip
-        return API.CreateBlipForPlayer(self.id, name, x, y, z, scale, color if color is not None else _blip.Color.ORANGE, sprite if sprite is not None else _blip.Sprite.STANDARD)
+        return __orange__.CreateBlipForPlayer(self.id, name, x, y, z, scale, color if color is not None else _blip.Color.ORANGE, sprite if sprite is not None else _blip.Sprite.STANDARD)
     
     def createMarker(self, x, y, z, h = 1, r = 1, blip = None):
         from GTAOrange import marker as _marker
@@ -45,31 +45,31 @@ class Player():
             return _world.getDistance(x1, y1, x, y)
     
     def getHeading(self):
-        return API.GetPlayerHeading(self.id)
+        return __orange__.GetPlayerHeading(self.id)
         
     def getID(self):
         return self.id
     
     def getModel(self):
-        return API.GetPlayerModel(self.id)
+        return __orange__.GetPlayerModel(self.id)
     
     def getName(self):
-        return API.GetPlayerName(self.id)
+        return __orange__.GetPlayerName(self.id)
     
     def getPosition(self):
-        return API.GetPlayerPosition(self.id)
+        return __orange__.GetPlayerPosition(self.id)
     
     def getMoney(self):
-        return API.GetPlayerMoney(self.id)
+        return __orange__.GetPlayerMoney(self.id)
     
     def getHealth(self):
-        return API.GetPlayerHealth(self.id)
+        return __orange__.GetPlayerHealth(self.id)
     
     def giveWeapon(self, weapon, ammo = None):
         if ammo is None:
-            return API.GivePlayerWeapon(self.id, weapon, 100)
+            return __orange__.GivePlayerWeapon(self.id, weapon, 100)
         else:
-            return API.GivePlayerWeapon(self.id, weapon, ammo)
+            return __orange__.GivePlayerWeapon(self.id, weapon, ammo)
             
     def isInMarker(self, marker):
         x1, y1, z1 = self.getPosition()
@@ -78,7 +78,7 @@ class Player():
         return _world.getDistance(x1, y1, x2, y2) < 0.5 and (z1 - z2) * (z1 - z2) < (0.5 * 0.5)
     
     def removeWeapons(self):
-        API.RemovePlayerWeapons(self.id)
+        __orange__.RemovePlayerWeapons(self.id)
     
     def on(self, event, cb):
         if event in __ehandlers[event].keys():
@@ -88,61 +88,61 @@ class Player():
             self._ehandlers[event].append(_event.Event(cb))
     
     def sendNotification(self, msg):
-        API.SendPlayerNotification(self.id, msg)
+        __orange__.SendPlayerNotification(self.id, msg)
     
     def chatMsg(self, msg):
-        API.SendClientMessage(self.id, "{FFFFFF}" + msg, 255)
+        __orange__.SendClientMessage(self.id, "{FFFFFF}" + msg, 255)
     
     def setArmour(self, armour):
-        API.SetPlayerArmour(self.id, armour)
+        __orange__.SetPlayerArmour(self.id, armour)
     
     def setHeading(self, heading):
-        API.SetPlayerHeading(self.id, heading)
+        __orange__.SetPlayerHeading(self.id, heading)
         
     def setHealth(self, health):
-        API.SetPlayerHealth(self.id, health)
+        __orange__.SetPlayerHealth(self.id, health)
     
     def setName(self, name):
-        API.SetPlayerName(self.id, name)
+        __orange__.SetPlayerName(self.id, name)
     
     def setInfoMsg(self, msg = None):
         if msg is None:
-            API.UnsetInfoMsg(self.id)
+            __orange__.UnsetInfoMsg(self.id)
         else:
-            API.SetInfoMsg(self.id, msg)
+            __orange__.SetInfoMsg(self.id, msg)
     
     def setIntoVeh(self, veh, seat = None):
         if seat is None:
-            API.SetPlayerIntoVehicle(self.id, veh.id, -1)
+            __orange__.SetPlayerIntoVehicle(self.id, veh.id, -1)
         else:
-            API.SetPlayerIntoVehicle(self.id, veh.id, seat)
+            __orange__.SetPlayerIntoVehicle(self.id, veh.id, seat)
     
     def setModel(self, model):
-        API.SetPlayerModel(self.id, model)
+        __orange__.SetPlayerModel(self.id, model)
     
     def setPosition(self, x, y, z):
-        API.SetPlayerPosition(self.id, x, y, z)
+        __orange__.SetPlayerPosition(self.id, x, y, z)
     
     def setMoney(self, money):
-        API.SetPlayerMoney(self.id, money)
+        __orange__.SetPlayerMoney(self.id, money)
     
     def resetMoney(self):
-        API.ResetPlayerMoney(self.id)
+        __orange__.ResetPlayerMoney(self.id)
         
     def giveMoney(self, money):
-        API.GivePlayerMoney(self.id, money)
+        __orange__.GivePlayerMoney(self.id, money)
 
     def giveAmmo(self, weapon, ammo):
-        API.GivePlayerAmmo(self.id, weapon, ammo)
+        __orange__.GivePlayerAmmo(self.id, weapon, ammo)
         
     def broadcast(self, msg, color):
         broadcast(msg, color)
     
     def disableHUD(self):
-        API.DisablePlayerHud(self.id, True)
+        __orange__.DisablePlayerHud(self.id, True)
     
     def enableHUD(self):
-        API.DisablePlayerHud(self.id, False)
+        __orange__.DisablePlayerHud(self.id, False)
     
     def trigger(self, event, *args):
         if event in self._ehandlers.keys():
@@ -150,13 +150,13 @@ class Player():
                 handler.getCallback()(*args)
     
     def triggerClient(self, event, *args):
-        API.TriggerClientEvent(self.id, event, *args)
+        __orange__.TriggerClientEvent(self.id, event, *args)
 
 def broadcast(msg, color):
-    API.BroadcastClientMessage(msg, color)
+    __orange__.BroadcastClientMessage(msg, color)
     
 def exists(id):
-    #return API.PlayerExists(id)
+    #return __orange__.PlayerExists(id)
     return True
     
 def deleteByID(id):
@@ -198,7 +198,7 @@ def trigger(event, *args):
             handler.getCallback()(*args)
 
 def triggerClient(event, *args):
-    API.TriggerClientEvent(-1, event, *args)
+    __orange__.TriggerClientEvent(-1, event, *args)
 
 def _onConnect(*args):
     # replace first arg (player id) with player obj
@@ -221,6 +221,6 @@ def _onCommand(*args):
     
     trigger("command", *args)
 
-API.AddServerEvent(_onConnect, "PlayerConnect")
-API.AddServerEvent(_onDisconnect, "PlayerDisconnect")
-API.AddServerEvent(_onCommand, "PlayerCommand")
+__orange__.AddServerEvent(_onConnect, "PlayerConnect")
+__orange__.AddServerEvent(_onDisconnect, "PlayerDisconnect")
+__orange__.AddServerEvent(_onCommand, "PlayerCommand")
