@@ -9,36 +9,53 @@ class Text():
     tcolor = None
     ocolor = None
     size = None
-    text = None
     
     _ehandlers = {}
     
-    def __init__(self, x, y, z, tcolor = 0xFFFFFFFF, ocolor = 0xFFFFFFFF, size = 20):
-        pass
+    def __init__(self, id, text, x, y, z, tcolor = 0xFFFFFFFF, ocolor = 0xFFFFFFFF, size = 20):
+        self.id = id
+        self.x = x
+        self.y = y
+        self.z = z
+        self.tcolor = tcolor
+        self.ocolor = ocolor
+        self.size = size
     
     def delete(self):
-        pass
-    
+        API.Delete3DText(self.id)
+        del __pool[self.id]
+        
     def getID(self):
-        pass
+        return self.id
     
     def getPosition(self):
-        pass
+        return (self.x, self.y, self.z)
     
     def getColors(self):
-        pass
+        return (self.tcolor, self.ocolor)
     
     def getSize(self):
-        pass
+        return self.size
     
     def getText(self):
-        pass
+        return self.text
     
-    def attachToVeh(veh, x = 0, y = 0, z = 0):
-        pass
+def create(text, x, y, z, tcolor = 0xFFFFFFFF, ocolor = 0xFFFFFFFF, size = 20):
+    global __pool
     
-def create(text, x, y, z, tcolor, ocolor, size):
-    pass
-
+    text = Text(API.Create3DText(text, x, y, z, tcolor, ocolor, size), text, x, y, z, tcolor, ocolor, size)
+    __pool[text.id] = text
+    return text
+    
 def getByID(id):
-    pass
+    global __pool
+    
+    if isinstance(id, int):
+        if id in __pool.keys():
+            return __pool[id]
+        return False
+    else:
+        raise TypeError('3DText ID must be an integer')
+
+def getAll():
+    return __pool
