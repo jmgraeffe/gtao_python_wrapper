@@ -58,7 +58,7 @@ class Vehicle():
             return False
     
     def on(self, event, cb):
-        if event in __ehandlers[event].keys():
+        if event in self._ehandlers.keys():
             self._ehandlers[event].append(_event.Event(cb))
         else:
             self._ehandlers[event] = []
