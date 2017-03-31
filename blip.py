@@ -60,8 +60,12 @@ class Blip():
         API.SetBlipShortRange(self.id, toggle)
     
 def create(name, x, y, z, scale = 1.0, color = None, sprite = None):
-    return Blip(API.CreateBlipForAll(name, x, y, z, scale, color if color is not None else Color.ORANGE, sprite if sprite is not None else Sprite.STANDARD), True)
-
+    global __pool
+    
+    blip = Blip(API.CreateBlipForAll(name, x, y, z, scale, color if color is not None else Color.ORANGE, sprite if sprite is not None else Sprite.STANDARD), True)
+    __pool[blip.id] = blip
+    return blip
+    
 def getByID(id):
     global __pool
     
