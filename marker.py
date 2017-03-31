@@ -59,10 +59,14 @@ class Marker():
     
 def create(x, y, z, h = 1, r = 1, blip = None):
     from GTAOrange import blip as _blip
+    global __pool
     
     marker = Marker(API.CreateMarkerForAll(x, y, z, h, r), x, y, z, h, r)
+    __pool[marker.id] = marker
+    
     if blip is not None:
         marker.blip = _blip.create("Marker", x, y, z)
+    
     return marker
 
 def getByID(id):
