@@ -200,26 +200,26 @@ def trigger(event, *args):
 def triggerClient(event, *args):
     __orange__.TriggerClientEvent(-1, event, *args)
 
-def _onConnect(*args):
-    # replace first arg (player id) with player obj
-    args = list(args)
-    args[0] = getByID(args[0])
+def _onConnect(player_id, ip):
+    player = getByID(player_id)
     
-    trigger("connect", *args)
+    trigger("connect", player, ip)
+    player.trigger("connect", ip)
     
-def _onDisconnect(*args):
-    # replace first arg (player id) with player obj
-    args = list(args)
-    args[0] = getByID(args[0])
+def _onDisconnect(player_id, reason):
+    player = getByID(player_id)
     
-    trigger("disconnect", *args)
+    trigger("disconnect", player, reason)
+    player.trigger("connect", reason)
 
 def _onCommand(*args):
     # replace first arg (player id) with player obj
     args = list(args)
-    args[0] = getByID(args[0])
+    player = getByID(args[0])
+    del args[0]
     
-    trigger("command", *args)
+    trigger("command", player, *args)
+    player.trigger("connect", *args)
 
 __orange__.AddServerEvent(_onConnect, "PlayerConnect")
 __orange__.AddServerEvent(_onDisconnect, "PlayerDisconnect")
