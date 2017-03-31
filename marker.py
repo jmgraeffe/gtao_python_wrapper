@@ -99,28 +99,36 @@ def _onPlayerEnteredMarker(player_id, marker_id):
     marker = getByID(marker_id)
     
     trigger("playerentered", player)
+    marker.trigger("playerentered", player)
     _player.trigger("enteredmarker", marker)
+    player.trigger("enteredmarker", marker)
 
 def _onPlayerLeftMarker(player_id, marker_id):
     player = _player.getByID(player_id)
     marker = getByID(marker_id)
     
     trigger("playerleft", player)
+    marker.trigger("playerleft", player)
     _player.trigger("leftmarker", marker)
+    player.trigger("leftmarker", marker)
 
 def _onVehicleEnteredMarker(vehicle_id, marker_id):
     vehicle = _vehicle.getByID(vehicle_id)
     marker = getByID(marker_id)
     
     trigger("vehicleentered", vehicle)
+    marker.trigger("vehicleentered", vehicle)
     _vehicle.trigger("enteredmarker", marker)
+    vehicle.trigger("enteredmarker", marker)
 
 def _onVehicleLeftMarker(vehicle_id, marker_id):
     vehicle = _vehicle.getByID(vehicle_id)
     marker = getByID(marker_id)
     
     trigger("vehicleleft", vehicle)
+    marker.trigger("vehicleleft", vehicle)
     _vehicle.trigger("leftmarker", marker)
+    vehicle.trigger("leftmarker", marker)
     
 __orange__.AddServerEvent(_onPlayerEnteredMarker, "EnterMarker")
 __orange__.AddServerEvent(_onPlayerLeftMarker, "LeftMarker")
