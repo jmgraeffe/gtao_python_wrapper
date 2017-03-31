@@ -117,23 +117,23 @@ def trigger(event, *args):
         for handler in __ehandlers[event]:
             handler.getCallback()(*args)
 
-def _onPlayerEntered(*args):
-    # replace first arg (player id) with player obj
-    args = list(args)
-    args[0] = _player.getByID(args[0])
-    args[1] = getByID(args[1])
+def _onPlayerEntered(player_id, vehicle_id):
+    player = _player.getByID(player_id)
+    vehicle = getByID(vehicle_id)
     
-    trigger("playerentered", *args)
-    _player.trigger("enteredvehicle", *args)
+    trigger("playerentered", player, vehicle)
+    vehicle.trigger("playerentered", player)
+    _player.trigger("playerentered", player, vehicle)
+    player.trigger("playerentered", vehicle)
 
-def _onPlayerLeft(*args):
-    # replace first arg (player id) with player obj
-    args = list(args)
-    args[0] = _player.getByID(args[0])
-    args[1] = getByID(args[1])
+def _onPlayerLeft(player_id, vehicle_id):
+    player = _player.getByID(player_id)
+    vehicle = getByID(vehicle_id)
     
-    trigger("playerleft", *args)
-    _player.trigger("leftvehicle", *args)
+    trigger("playerleft", player, vehicle)
+    vehicle.trigger("playerleft", player)
+    _player.trigger("leftvehicle", player, vehicle)
+    player.trigger("leftvehicle", vehicle)
 
 __orange__.AddServerEvent(_onPlayerEntered, "EnterVehicle")
 __orange__.AddServerEvent(_onPlayerLeft, "LeftVehicle")
