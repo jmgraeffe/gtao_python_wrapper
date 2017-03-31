@@ -55,7 +55,7 @@ class Marker():
     def trigger(self, event, *args):
         if event in self._ehandlers.keys():
             for handler in self._ehandlers[event]:
-                handler.getCallback()(*args)
+                handler.getCallback()(self, *args)
     
 def create(x, y, z, h = 1, r = 1, blip = None):
     from GTAOrange import blip as _blip
