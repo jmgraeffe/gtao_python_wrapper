@@ -67,7 +67,7 @@ class Vehicle():
     def trigger(self, event, *args):
         if event in self._ehandlers.keys():
             for handler in self._ehandlers[event]:
-                handler.getCallback()(*args)
+                handler.getCallback()(self, *args)
     
 def create(model, x, y, z, h):
     veh = Vehicle(__orange__.CreateVehicle(model, x, y, z, h))
