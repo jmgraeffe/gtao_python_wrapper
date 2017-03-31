@@ -71,6 +71,7 @@ class Vehicle():
     
 def create(model, x, y, z, h):
     veh = Vehicle(API.CreateVehicle(model, x, y, z, h))
+    __pool[veh.id] = veh
     return veh
 
 def deleteByID(id):
