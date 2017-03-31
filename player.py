@@ -81,7 +81,7 @@ class Player():
         __orange__.RemovePlayerWeapons(self.id)
     
     def on(self, event, cb):
-        if event in __ehandlers[event].keys():
+        if event in self._ehandlers.keys():
             self._ehandlers[event].append(_event.Event(cb))
         else:
             self._ehandlers[event] = []
@@ -147,7 +147,7 @@ class Player():
     def trigger(self, event, *args):
         if event in self._ehandlers.keys():
             for handler in self._ehandlers[event]:
-                handler.getCallback()(*args)
+                handler.getCallback()(self, *args)
     
     def triggerClient(self, event, *args):
         __orange__.TriggerClientEvent(self.id, event, *args)
