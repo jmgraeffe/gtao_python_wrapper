@@ -44,7 +44,7 @@ class Text():
 def create(text, x, y, z, tcolor = 0xFFFFFFFF, ocolor = 0xFFFFFFFF, size = 20):
     global __pool
     
-    text = Text(__orange__.Create3DText(text, x, y, z, tcolor, ocolor, size), text, x, y, z, tcolor, ocolor, size)
+    text = Text(__orange__.Create3DTextForAll(text, x, y, z, tcolor, ocolor, size), text, x, y, z, tcolor, ocolor, size)
     __pool[text.id] = text
     return text
     
