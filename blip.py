@@ -70,7 +70,10 @@ def getByID(id):
             return __pool[id]
         return False
     else:
-        raise TypeError('Vehicle ID must be an integer')
+        raise TypeError('Blip ID must be an integer')
+
+def getAll():
+    return __pool
 
 class Color():
     WHITE = 0
