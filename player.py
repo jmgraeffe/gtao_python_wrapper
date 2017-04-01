@@ -207,10 +207,13 @@ def _onConnect(player_id, ip):
     player.trigger("connect", ip)
     
 def _onDisconnect(player_id, reason):
+    global __pool
     player = getByID(player_id)
     
     trigger("disconnect", player, reason)
     player.trigger("connect", reason)
+    
+    del __pool[player_id]
 
 def _onCommand(*args):
     # replace first arg (player id) with player obj
