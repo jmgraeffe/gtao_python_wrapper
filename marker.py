@@ -28,8 +28,7 @@ class Marker():
         self.r = r
     
     def delete(self):
-        __orange__.DeleteMarker(self.id)
-        del __pool[self.id]
+        deleteByID(self.id)
     
     def distanceTo(self, x, y, z = None):
         if z is not None:
@@ -69,6 +68,18 @@ def create(x, y, z, h = 1, r = 1, blip = None):
     
     return marker
 
+def deleteByID(id):
+    global __pool
+    
+    if isinstance(id, int):
+        if id in __pool.keys():
+            del __pool[id]
+            return __orange__.DeleteMarker(id)
+        else:
+            return False
+    else:
+        raise TypeError('Marker ID must be an integer')
+        
 def getByID(id):
     global __pool
     
