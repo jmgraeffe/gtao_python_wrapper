@@ -4,6 +4,12 @@ import __orange__
 from GTAOrange import world as _world
 from GTAOrange import event as _event
 
+__author__ = "Jon-Mailes Graeffe"
+__copyright__ = "Copyright 2017, Jon-Mailes Graeffe"
+__credits__ = ["GTA Orange team", "Hexaflexagon"]
+__license__ = "Closed-source, freeware"
+__maintainer__ = "Jon-Mailes Graeffe"
+
 __pool = {}
 __ehandlers = {}
 
