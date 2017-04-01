@@ -14,7 +14,7 @@ class Player():
     """Player class
 
     DO NOT GENERATE NEW OBJECTS DIRECTLY! Please use the create() function instead.
-    
+
     Attributes:
         id (int): player id
         meta (dict): For future releases
@@ -26,7 +26,7 @@ class Player():
 
     def __init__(self, id):
         """Initializes a new Player object.
-        
+
         Args:
             id (id): player id
         """
@@ -34,13 +34,13 @@ class Player():
 
     def attachBlip(self, name="Player", scale=1, color=None, sprite=None):
         """Creates a blip and attaches it to the player afterwards.
-        
+
         Args:
             name (str, optional): Blip name
             scale (int, optional): Blip scale
             color (_blip.Color, optional): Blip color (see Blip library -> classes at the eof)
             sprite (_blip.Sprite, optional): Blip sprite (see Blip library -> classes at the eof)
-        
+
         Returns:
             Blip: generated Blip
         """
@@ -53,7 +53,7 @@ class Player():
 
     def createBlip(self, name, x, y, z, scale=1, color=None, sprite=None):
         """Creates a blip which only the player can see.
-        
+
         TODO: Needs rewrite, when the blip lib is able to handle player-local blips.
 
         Args:
@@ -64,7 +64,7 @@ class Player():
             scale (int, optional): Blip scale
             color (_blip.Color, optional): Blip color (see Blip library -> classes at the eof)
             sprite (_blip.Sprite, optional): Blip sprite (see Blip library -> classes at the eof)
-        
+
         Returns:
             int: Blip id
         """
@@ -73,12 +73,12 @@ class Player():
 
     def distanceTo(self, x, y, z=None):
         """Returns the distance from player to the given coordinates.
-        
+
         Args:
             x (float): x-coord
             y (float): y-coord
             z (float, optional): z-coord
-        
+
         Returns:
             float: distance between player and given coordinates
         """
@@ -91,7 +91,7 @@ class Player():
 
     def getHeading(self):
         """Returns player heading.
-        
+
         Returns:
             float: player heading
         """
@@ -99,7 +99,7 @@ class Player():
 
     def getID(self):
         """Returns player id.
-        
+
         Returns:
             int: player id
         """
@@ -107,7 +107,7 @@ class Player():
 
     def getModel(self):
         """Returns current model.
-        
+
         Returns:
             int: model hash
         """
@@ -115,7 +115,7 @@ class Player():
 
     def getName(self):
         """Returns current name.
-        
+
         Returns:
             string: current name
         """
@@ -123,7 +123,7 @@ class Player():
 
     def getPosition(self):
         """Returns current position.
-        
+
         Returns:
             tuple: position tuple with 3 values
         """
@@ -131,7 +131,7 @@ class Player():
 
     def getMoney(self):
         """Returns current money value the player is having.
-        
+
         Returns:
             int: money value
         """
@@ -139,7 +139,7 @@ class Player():
 
     def getHealth(self):
         """Returns current health.
-        
+
         Returns:
             float: current health
         """
@@ -147,7 +147,7 @@ class Player():
 
     def giveWeapon(self, weapon, ammo=None):
         """Gives weapon to player.
-        
+
         Args:
             weapon (int): weapon hash
             ammo (int, optional): ammo amount
@@ -159,10 +159,10 @@ class Player():
 
     def isInMarker(self, marker):
         """Checks if a player is in a marker.
-        
+
         Args:
             marker (_marker.Marker): marker
-        
+
         Returns:
             bool: True for yes, False for no
         """
@@ -178,7 +178,7 @@ class Player():
 
     def on(self, event, cb):
         """Subscribes for an event only for this player.
-        
+
         Args:
             event (string): event name
             cb (function): callback function
@@ -191,7 +191,7 @@ class Player():
 
     def sendNotification(self, msg):
         """Sends a notification to the player.
-        
+
         Args:
             msg (string): message string
         """
@@ -199,7 +199,7 @@ class Player():
 
     def chatMsg(self, msg):
         """Sends a chat message to the player.
-        
+
         Args:
             msg (string): message string
         """
@@ -207,7 +207,7 @@ class Player():
 
     def setArmour(self, armour):
         """Sets armour.
-        
+
         Args:
             armour (float): armour value
         """
@@ -215,7 +215,7 @@ class Player():
 
     def setHeading(self, heading):
         """Sets heading (direction where the player is looking)
-        
+
         Args:
             heading (float): heading
         """
@@ -223,7 +223,7 @@ class Player():
 
     def setHealth(self, health):
         """Sets health.
-        
+
         Args:
             health (float): health value
         """
@@ -231,7 +231,7 @@ class Player():
 
     def setName(self, name):
         """Sets current name.
-        
+
         Args:
             name (string): name string
         """
@@ -239,7 +239,7 @@ class Player():
 
     def setInfoMsg(self, msg=None):
         """Sets info message for player.
-        
+
         Args:
             msg (string, optional): message string
         """
@@ -250,7 +250,7 @@ class Player():
 
     def setIntoVeh(self, veh, seat=None):
         """Sets player into given vehicle.
-        
+
         Args:
             veh (_vehicle.Vehicle): vehicle object
             seat (int, optional): seat number
@@ -262,7 +262,7 @@ class Player():
 
     def setModel(self, model):
         """Sets current model.
-        
+
         Args:
             model (int): model hash
         """
@@ -270,7 +270,7 @@ class Player():
 
     def setPosition(self, x, y, z):
         """Sets position.
-        
+
         Args:
             x (float): x-coord
             y (float): y-coord
@@ -280,7 +280,7 @@ class Player():
 
     def setMoney(self, money):
         """Sets current money the player is having.
-        
+
         Args:
             money (int): money value
         """
@@ -293,7 +293,7 @@ class Player():
 
     def giveMoney(self, money):
         """Gives specific amount of money (addition).
-        
+
         Args:
             money (int): money value
         """
@@ -301,7 +301,7 @@ class Player():
 
     def giveAmmo(self, weapon, ammo):
         """Gives ammo to player.
-        
+
         Args:
             weapon (int): weapon hash
             ammo (int): ammo amount
@@ -310,7 +310,7 @@ class Player():
 
     def broadcast(self, msg, color):
         """Broadcasts a message to the player.
-        
+
         Args:
             msg (string): message string
             color (_color.Color): message color
@@ -329,7 +329,7 @@ class Player():
 
     def trigger(self, event, *args):
         """Triggers an event for the event handlers subscribing to this specific player.
-        
+
         Args:
             event (string): event name
             *args: arguments
@@ -340,7 +340,7 @@ class Player():
 
     def triggerClient(self, event, *args):
         """Triggers a client event for the player.
-        
+
         Args:
             event (string): event name
             *args: arguments
@@ -350,7 +350,7 @@ class Player():
 
 def broadcast(msg, color):
     """Broadcasts a message to all players.
-    
+
     Args:
         msg (string): message string
         color (_color.Color): message color
@@ -360,25 +360,26 @@ def broadcast(msg, color):
 
 def exists(id):
     """Checks if a player with the given id exists internally.
-    
+
     Args:
         id (int): player id
-    
+
     Returns:
         bool: True on yes, False on no
     """
     # return __orange__.PlayerExists(id)
     return True
 
+
 def getByID(id):
     """Returns player object by given id.
-    
+
     Args:
         id (int): player id
-    
+
     Returns:
         Player: player object (False on failure)
-    
+
     Raises:
         TypeError: raises if player id is not int
     """
@@ -397,10 +398,10 @@ def getByID(id):
 
 def getByName(name):
     """Returns player object by its name.
-    
+
     Args:
         name (string): player name
-    
+
     Returns:
         Player: player object (False on failure)
     """
@@ -414,7 +415,7 @@ def getAll():
     """Returns dictionary with all player objects. 
 
     WARNING! Can cause heavy load on some servers. If you can avoid using it, don't use it!
-    
+
     Returns:
         dict: player dictionary
     """
@@ -423,7 +424,7 @@ def getAll():
 
 def on(event, cb):
     """Subscribes for an event for all players.
-    
+
     Args:
         event (string): event name
         cb (function): callback function
@@ -437,7 +438,7 @@ def on(event, cb):
 
 def trigger(event, *args):
     """Triggers an event for all players.
-    
+
     Args:
         event (string): event name
         *args: arguments
@@ -449,7 +450,7 @@ def trigger(event, *args):
 
 def triggerClient(event, *args):
     """Triggers a client event for all players.
-    
+
     Args:
         event (string): event name
         *args: arguments
