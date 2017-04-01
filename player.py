@@ -38,8 +38,8 @@ class Player():
         Args:
             name (str, optional): Blip name
             scale (int, optional): Blip scale
-            color (_blip.Color, optional): Blip color (see Blip library -> classes at the eof)
-            sprite (_blip.Sprite, optional): Blip sprite (see Blip library -> classes at the eof)
+            color (GTAOrange.blip.Color, optional): Blip color (see Blip library -> classes at the eof)
+            sprite (GTAOrange.blip.Sprite, optional): Blip sprite (see Blip library -> classes at the eof)
 
         Returns:
             Blip: generated Blip
@@ -62,8 +62,8 @@ class Player():
             y (float): y-coord of Blip
             z (float): z-coord of Blip
             scale (int, optional): Blip scale
-            color (_blip.Color, optional): Blip color (see Blip library -> classes at the eof)
-            sprite (_blip.Sprite, optional): Blip sprite (see Blip library -> classes at the eof)
+            color (GTAOrange.blip.Color, optional): Blip color (see Blip library -> classes at the eof)
+            sprite (GTAOrange.blip.Sprite, optional): Blip sprite (see Blip library -> classes at the eof)
 
         Returns:
             int: Blip id
@@ -161,7 +161,7 @@ class Player():
         """Checks if a player is in a marker.
 
         Args:
-            marker (_marker.Marker): marker
+            marker (GTAOrange.marker.Marker): marker
 
         Returns:
             bool: True for yes, False for no
@@ -252,7 +252,7 @@ class Player():
         """Sets player into given vehicle.
 
         Args:
-            veh (_vehicle.Vehicle): vehicle object
+            veh (GTAOrange.vehicle.Vehicle): vehicle object
             seat (int, optional): seat number
         """
         if seat is None:
@@ -313,7 +313,7 @@ class Player():
 
         Args:
             msg (string): message string
-            color (_color.Color): message color
+            color (GTAOrange.color.Color): message color
         """
         broadcast(msg, color)
 
@@ -353,7 +353,7 @@ def broadcast(msg, color):
 
     Args:
         msg (string): message string
-        color (_color.Color): message color
+        color (GTAOrange.color.Color): message color
     """
     __orange__.BroadcastClientMessage(msg, color)
 
@@ -412,7 +412,7 @@ def getByName(name):
 
 
 def getAll():
-    """Returns dictionary with all player objects. 
+    """Returns dictionary with all player objects.
 
     WARNING! Can cause heavy load on some servers. If you can avoid using it, don't use it!
 
