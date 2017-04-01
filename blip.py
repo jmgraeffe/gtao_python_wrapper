@@ -1,22 +1,46 @@
+"""Summary
+"""
 import __orange__
 from GTAOrange import world as _world
 from GTAOrange import vehicle as _vehicle
 from GTAOrange import player as _player
- 
+
 __pool = {}
 
-class Blip():
 
+class Blip():
+    """Blip class
+
+    DO NOT GENERATE NEW OBJECTS DIRECTLY! Please use the create() function instead.
+
+    Attributes:
+        id (id): blip id
+        is_global (bool): boolean which says if this blip is displayed to all players or not
+    """
     id = None
     is_global = None
-    
+
     _ehandlers = {}
-    
+
     def __init__(self, id, is_global):
+        """Initializes a new Blip object.
+
+        Args:
+            id (TYPE): Description
+            is_global (TYPE): Description
+        """
         self.id = id
         self.is_global = is_global
-        
+
     def attachTo(self, dest):
+        """Attaches the blip to the vehicle represented by the given vehicle object, or to the player represented by the given player object.
+
+        Args:
+            dest (GTAOrange.player.Player OR GTAOrange.vehicle.Vehicle): player or vehicle object
+
+        Returns:
+            bool: True for success, False for failure
+        """
         if isinstance(dest, _player.Player):
             __orange__.AttachBlipToPlayer(self.id, dest.id)
             return True
@@ -25,11 +49,23 @@ class Blip():
             return True
         else:
             return False
-    
+
     def delete(self):
+        """Deletes the blip.
+        """
         deleteByID(self.id)
-    
-    def distanceTo(self, x, y, z = None):
+
+    def distanceTo(self, x, y, z=None):
+        """Returns the distance from the blip to the given coordinates.
+
+        Args:
+            x (float): x-coord
+            y (float): y-coord
+            z (float, optional): z-coord
+
+        Returns:
+            float: distance between blip and given coordinates
+        """
         if z is not None:
             x1, y1, z1 = self.getPosition()
             return _world.getDistance(x1, y1, z1, x, y, z)
@@ -38,36 +74,101 @@ class Blip():
             return _world.getDistance(x1, y1, x, y)
 
     def getID(self):
+        """Returns blip id.
+
+        Returns:
+            int: blip id
+        """
         return self.id
-    
+
     def getPosition(self):
+        """Returns current position.
+
+        Returns:
+            tuple: position tuple with 3 values
+        """
         return __orange__.GetBlipCoords(self.id)
-    
+
     def setColor(self, color):
+        """Sets color of the blip.
+
+        Args:
+            color (GTAOrange.blip.Color): blip color
+        """
         __orange__.SetBlipColor(self.id, color)
-    
+
     def setRoute(self, route):
+        """Enables/disables routing to blip.
+
+        Args:
+            route (bool): True for routing, False for not
+        """
         __orange__.SetBlipRoute(self.id, route)
-    
+
     def setScale(self, scale):
+        """Sets scale of blip.
+
+        Args:
+            scale (float): blip scale
+        """
         __orange__.SetBlipScale(self.id, scale)
-    
+
     def setSprite(self, sprite):
+        """Sets sprite (texture, icon) of blip.
+
+        Args:
+            sprite (GTAOrange.blip.Sprite): blip sprite
+        """
         __orange__.SetBlipSprite(self.id, sprite)
-    
+
     def setShortRange(self, toggle):
+        """Sets that blip can be seen only on the short distance.
+
+        Args:
+            toggle (bool): True for yes, False for no
+        """
         __orange__.SetBlipShortRange(self.id, toggle)
-    
-def create(name, x, y, z, scale = 1.0, color = None, sprite = None):
+
+
+def create(name, x, y, z, scale=1.0, color=None, sprite=None):
+    """Creates a new blip.
+
+    This is the right way to spawn a new blip.
+
+    Args:
+        name (string): name (displayed in the map legend)
+        x (float): x-coord of blip
+        y (float): y-coord of blip
+        z (float): z-coord of blip
+        scale (float, optional): blip scale
+        color (GTAOrange.blip.Color, optional): blip color
+        sprite (GTAOrange.blip.Sprite, optional): blip sprite (texture, icon)
+
+    Returns:
+        GTAOrange.blip.Blip: blip object
+    """
     global __pool
-    
-    blip = Blip(__orange__.CreateBlipForAll(name, x, y, z, scale, color if color is not None else Color.ORANGE, sprite if sprite is not None else Sprite.STANDARD), True)
+
+    blip = Blip(__orange__.CreateBlipForAll(name, x, y, z, scale,
+                                            color if color is not None else Color.ORANGE, sprite if sprite is not None else Sprite.STANDARD), True)
     __pool[blip.id] = blip
     return blip
 
+
 def deleteByID(id):
+    """Deletes a blip object by the given id.
+
+    Args:
+        id (int): blip id
+
+    Returns:
+        bool: True on success, False on failure
+
+    Raises:
+        TypeError: raises if blip id is not int
+    """
     global __pool
-    
+
     if isinstance(id, int):
         if id in __pool.keys():
             del __pool[id]
@@ -76,10 +177,22 @@ def deleteByID(id):
             return False
     else:
         raise TypeError('Blip ID must be an integer')
-        
+
+
 def getByID(id):
+    """Returns blip object by given id.
+
+    Args:
+        id (int): blip id
+
+    Returns:
+        bool: True on success, False on failure
+
+    Raises:
+        TypeError: raises if blip id is not int
+    """
     global __pool
-    
+
     if isinstance(id, int):
         if id in __pool.keys():
             return __pool[id]
@@ -87,10 +200,21 @@ def getByID(id):
     else:
         raise TypeError('Blip ID must be an integer')
 
+
 def getAll():
+    """Returns dictionary with all blip objects. 
+
+    WARNING! Can cause heavy load on some servers. If you can avoid using it, don't use it!
+
+    Returns:
+        dict: blip dictionary
+    """
     return __pool
 
+
 class Color():
+    """Enum-like class with attributes representing all colors which can be used for blips
+    """
     WHITE = 0
     RED = 1
     GREEN = 2
@@ -108,7 +232,10 @@ class Color():
     TREVORORANGE = 44
     YELLOW = 66
 
+
 class Sprite():
+    """Enum-like class with attributes representing all sprites which can be used for blips
+    """
     STANDARD = 1
     BIGBLIP = 2
     POLICEOFFICER = 3
