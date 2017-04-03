@@ -172,6 +172,8 @@ def create(model, x, y, z, h):
     """
     veh = Vehicle(__orange__.CreateVehicle(model, x, y, z, h))
     __pool[veh.id] = veh
+
+    trigger("creation", veh)
     return veh
 
 
@@ -192,7 +194,9 @@ def deleteByID(id):
     if isinstance(id, int):
         if exists(id):
             if id in __pool.keys():
+                trigger("deletion", __pool[id])
                 del __pool[id]
+
             return __orange__.DeleteVehicle(id)
         return False
     else:
