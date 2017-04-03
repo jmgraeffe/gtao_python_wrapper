@@ -19,6 +19,10 @@ Subscribable events from other core libraries:
 +----------------+------------------------+------------------------------------+
 | leftvehicle    | vehicle (Vehicle)      | player (Player), vehicle (Vehicle) |
 +----------------+------------------------+------------------------------------+
+| enteredmarker  | marker (Marker)        | player (Player), marker (Marker)   |
++----------------+------------------------+------------------------------------+
+| leftmarker     | marker (Marker)        | player (Player), marker (Marker)   |
++----------------+------------------------+------------------------------------+
 """
 import __orange__
 from GTAOrange import world as _world
