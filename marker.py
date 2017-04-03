@@ -18,7 +18,7 @@ Subscribable built-in events:
 +----------------+-------------------------+------------------------------------+
 """
 import __orange__
-from GTAOrange import _world
+from GTAOrange import world as _world
 from GTAOrange import event as _event
 from GTAOrange import vehicle as _vehicle
 from GTAOrange import player as _player
