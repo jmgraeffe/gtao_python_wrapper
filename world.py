@@ -5,7 +5,7 @@ import math
 
 def getDistance(x1, y1, z1, x2, y2=None, z2=None):
     """Returns the distance between two points, either 3-dimensional ones or 2-dimensional ones.
-    
+
     Please use the components of them in a row as parameters.
     For example, if you've 2d points:
 
@@ -24,7 +24,7 @@ def getDistance(x1, y1, z1, x2, y2=None, z2=None):
         x2 (float): x-coord of second point
         y2 (float, optional): y-coord of second point
         z2 (float, optional): z-coord of second point
-    
+
     Returns:
         float: distance between given points
     """
