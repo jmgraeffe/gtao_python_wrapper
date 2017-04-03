@@ -158,6 +158,7 @@ def create(x, y, z, h=1, r=1, blip=False):
     if blip is not False:
         marker.blip = _blip.create("Marker", x, y, z)
 
+    trigger("creation", marker)
     return marker
 
 
@@ -177,6 +178,7 @@ def deleteByID(id):
 
     if isinstance(id, int):
         if id in __pool.keys():
+            trigger("deletion", __pool[id])
             del __pool[id]
             return __orange__.DeleteMarker(id)
         else:
@@ -248,9 +250,9 @@ def _onPlayerEnteredMarker(player_id, marker_id):
     player = _player.getByID(player_id)
     marker = getByID(marker_id)
 
-    trigger("playerentered", player)
+    trigger("playerentered", marker, player)
     marker.trigger("playerentered", player)
-    _player.trigger("enteredmarker", marker)
+    _player.trigger("enteredmarker", player, marker)
     player.trigger("enteredmarker", marker)
 
 
@@ -258,9 +260,9 @@ def _onPlayerLeftMarker(player_id, marker_id):
     player = _player.getByID(player_id)
     marker = getByID(marker_id)
 
-    trigger("playerleft", player)
+    trigger("playerleft", marker, player)
     marker.trigger("playerleft", player)
-    _player.trigger("leftmarker", marker)
+    _player.trigger("leftmarker", player, marker)
     player.trigger("leftmarker", marker)
 
 
@@ -268,9 +270,9 @@ def _onVehicleEnteredMarker(vehicle_id, marker_id):
     vehicle = _vehicle.getByID(vehicle_id)
     marker = getByID(marker_id)
 
-    trigger("vehicleentered", vehicle)
+    trigger("vehicleentered", marker, vehicle)
     marker.trigger("vehicleentered", vehicle)
-    _vehicle.trigger("enteredmarker", marker)
+    _vehicle.trigger("enteredmarker", vehicle, marker)
     vehicle.trigger("enteredmarker", marker)
 
 
@@ -278,9 +280,9 @@ def _onVehicleLeftMarker(vehicle_id, marker_id):
     vehicle = _vehicle.getByID(vehicle_id)
     marker = getByID(marker_id)
 
-    trigger("vehicleleft", vehicle)
+    trigger("vehicleleft", marker, vehicle)
     marker.trigger("vehicleleft", vehicle)
-    _vehicle.trigger("leftmarker", marker)
+    _vehicle.trigger("leftmarker", vehicle, marker)
     vehicle.trigger("leftmarker", marker)
 
 
