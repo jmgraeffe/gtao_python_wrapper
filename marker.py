@@ -135,7 +135,7 @@ class Marker():
 def create(x, y, z, h=1, r=1, blip=False):
     """Creates a new marker.
 
-    This is the right way to spawn a new vehicle.
+    This is the right way to spawn a new marker.
 
     Args:
         x (float): x-coord
