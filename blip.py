@@ -5,12 +5,6 @@ from GTAOrange import world as _world
 from GTAOrange import vehicle as _vehicle
 from GTAOrange import player as _player
 
-__author__ = "Jon-Mailes Graeffe"
-__copyright__ = "Copyright 2017, Jon-Mailes Graeffe"
-__credits__ = ["GTA Orange team", "Hexaflexagon"]
-__license__ = "Closed-source, freeware"
-__maintainer__ = "Jon-Mailes Graeffe"
-
 __pool = {}
 
 
