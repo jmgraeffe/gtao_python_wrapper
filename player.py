@@ -1,4 +1,24 @@
 """Python wrapper for GTA Orange's player functions
+
+Subscribable built-in events:
++============+========================+===================================+
+|    name    | player-local arguments |         global arguments          |
++============+========================+===================================+
+| connect    | ip (string)            | player (Player), ip (string)      |
++------------+------------------------+-----------------------------------+
+| disconnect | reason (int)           | player (Player), reason (int)     |
++------------+------------------------+-----------------------------------+
+| command    | arguments (list)       | player (Player), arguments (list) |
++------------+------------------------+-----------------------------------+
+
+Subscribable events from other core libraries:
++================+========================+====================================+
+|      name      | player-local arguments |          global arguments          |
++================+========================+====================================+
+| enteredvehicle | vehicle (Vehicle)      | player (Player), vehicle (Vehicle) |
++----------------+------------------------+------------------------------------+
+| leftvehicle    | vehicle (Vehicle)      | player (Player), vehicle (Vehicle) |
++----------------+------------------------+------------------------------------+
 """
 import __orange__
 from GTAOrange import world as _world
@@ -17,7 +37,7 @@ class Player():
 
     Attributes:
         id (int): player id
-        meta (dict): For future releases
+        meta (dict): for future releases
     """
     id = None
     meta = {}
@@ -36,13 +56,13 @@ class Player():
         """Creates a blip and attaches it to the player afterwards.
 
         Args:
-            name (str, optional): Blip name
-            scale (int, optional): Blip scale
-            color (GTAOrange.blip.Color, optional): Blip color (see Blip library -> classes at the eof)
-            sprite (GTAOrange.blip.Sprite, optional): Blip sprite (see Blip library -> classes at the eof)
+            name (str, optional): blip name
+            scale (int, optional): blip scale
+            color (GTAOrange.blip.Color, optional): blip color (see blip library -> classes at the eof)
+            sprite (GTAOrange.blip.Sprite, optional): blip sprite (see blip library -> classes at the eof)
 
         Returns:
-            Blip: generated Blip
+            Blip: generated blip
         """
         from GTAOrange import blip as _blip
 
@@ -57,16 +77,16 @@ class Player():
         TODO: Needs rewrite, when the blip lib is able to handle player-local blips.
 
         Args:
-            name (string): Blip name
-            x (float): x-coord of Blip
-            y (float): y-coord of Blip
-            z (float): z-coord of Blip
-            scale (int, optional): Blip scale
-            color (GTAOrange.blip.Color, optional): Blip color (see Blip library -> classes at the eof)
-            sprite (GTAOrange.blip.Sprite, optional): Blip sprite (see Blip library -> classes at the eof)
+            name (string): blip name
+            x (float): x-coord of blip
+            y (float): y-coord of blip
+            z (float): z-coord of blip
+            scale (int, optional): blip scale
+            color (GTAOrange.blip.Color, optional): blip color (see blip library -> classes at the eof)
+            sprite (GTAOrange.blip.Sprite, optional): blip sprite (see blip library -> classes at the eof)
 
         Returns:
-            int: Blip id
+            int: blip id
         """
         from GTAOrange import blip as _blip
         return __orange__.CreateBlipForPlayer(self.id, name, x, y, z, scale, color if color is not None else _blip.Color.ORANGE, sprite if sprite is not None else _blip.Sprite.STANDARD)
@@ -361,6 +381,8 @@ def broadcast(msg, color):
 def exists(id):
     """Checks if a player with the given id exists internally.
 
+    TODO: Unimplemented atm.
+
     Args:
         id (int): player id
 
@@ -378,7 +400,7 @@ def getByID(id):
         id (int): player id
 
     Returns:
-        Player: player object (False on failure)
+        GTAOrange.player.Player: player object (False on failure)
 
     Raises:
         TypeError: raises if player id is not int
@@ -403,7 +425,7 @@ def getByName(name):
         name (string): player name
 
     Returns:
-        Player: player object (False on failure)
+        GTAOrange.player.Player: player object (False on failure)
     """
     for key, player in __pool.items():
         if player.getName() == name:
