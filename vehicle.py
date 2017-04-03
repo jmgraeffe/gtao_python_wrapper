@@ -283,7 +283,7 @@ def _onPlayerEntered(player_id, vehicle_id):
     player = _player.getByID(player_id)
     vehicle = getByID(vehicle_id)
 
-    trigger("playerentered", player, vehicle)
+    trigger("playerentered", vehicle, player)
     vehicle.trigger("playerentered", player)
     _player.trigger("enteredvehicle", player, vehicle)
     player.trigger("enteredvehicle", vehicle)
@@ -293,7 +293,7 @@ def _onPlayerLeft(player_id, vehicle_id):
     player = _player.getByID(player_id)
     vehicle = getByID(vehicle_id)
 
-    trigger("playerleft", player, vehicle)
+    trigger("playerleft", vehicle, player)
     vehicle.trigger("playerleft", player)
     _player.trigger("leftvehicle", player, vehicle)
     player.trigger("leftvehicle", vehicle)
