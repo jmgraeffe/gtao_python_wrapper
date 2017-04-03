@@ -1,6 +1,7 @@
+"""Python wrapper for GTA Orange's vehicle functions
+"""
 import __orange__
 from GTAOrange import world as _world
-from GTAOrange import blip as _blip
 from GTAOrange import text as _text
 from GTAOrange import player as _player
 from GTAOrange import event as _event
@@ -13,7 +14,15 @@ __ehandlers = {}
 
 
 class Vehicle():
+    """Vehicle class
 
+    DO NOT GENERATE NEW OBJECTS DIRECTLY! Please use the create() function instead.
+
+    Attributes:
+        id (int): vehicle id
+        meta (dict): for future releases
+        texts (dict): texts added to the vehicle
+    """
     id = None
     meta = {}
     texts = {}
@@ -21,14 +30,47 @@ class Vehicle():
     _ehandlers = {}
 
     def __init__(self, id):
+        """Initializes a new Vehicle object.
+
+        Args:
+            id (int): vehicle id
+        """
         self.id = id
 
-    def attachBlip(self, name="Vehicle", scale=0.6, color=_blip.Color.ORANGE, sprite=_blip.Sprite.PERSONALVEHICLECAR):
-        blip = _blip.create(name, 0, 0, 0, scale, color, sprite)
+    def attachBlip(self, name="Vehicle", scale=0.6, color=None, sprite=None):
+        """Creates and attaches a blip to the vehicle.
+
+        Args:
+            name (str, optional): blip name
+            scale (float, optional): blip scale
+            color (GTAOrange.blip.Color, optional): blip color (see blip library -> classes at the eof)
+            sprite (GTAOrange.blip.Sprite, optional): blip sprite (see blip library -> classes at the eof)
+
+        Returns:
+            GTAOrange.blip.Blip: generated blip
+        """
+        from GTAOrange import blip as _blip
+
+        blip = _blip.create(name, 0, 0, 0, scale, color if color is not None else _blip.Color.ORANGE,
+                            sprite if sprite is not None else _blip.Sprite.STANDARD)
         blip.attachTo(self)
         return blip
 
     def attachText(self, text, x=0, y=0, z=0, tcolor=0xFFFFFFFF, ocolor=0xFFFFFFFF, size=20):
+        """Creates and attaches a 3d text to the vehicle.
+
+        Args:
+            text (str): text which will be added
+            x (int, optional): x-coord
+            y (int, optional): y-coord
+            z (int, optional): z-coord
+            tcolor (int, optional): text color
+            ocolor (int, optional): outline color
+            size (int, optional): font size
+
+        Returns:
+            GTAOrange.text.Text: Description
+        """
         txt = _text.create(text, 0, 0, 72, tcolor, ocolor, size)
         txt.attachToVeh(self, x, y, z)
         self.texts[txt.id] = txt
@@ -36,9 +78,21 @@ class Vehicle():
         return txt
 
     def delete(self):
+        """Deletes the vehicle.
+        """
         deleteByID(self.id)
 
     def distanceTo(self, x, y, z=None):
+        """Returns the distance from vehicle to the given coordinates.
+
+        Args:
+            x (float): x-coord
+            y (float): y-coord
+            z (float, optional): z-coord
+
+        Returns:
+            float: distance between vehicle and given coordinates
+        """
         if z is not None:
             x1, y1, z1 = self.getPosition()
             return _world.getDistance(x1, y1, z1, x, y, z)
@@ -47,18 +101,42 @@ class Vehicle():
             return _world.getDistance(x1, y1, x, y)
 
     def getID(self):
+        """Returns vehicle id.
+
+        Returns:
+            int: vehicle id
+        """
         return self.id
 
     def getPosition(self):
+        """Returns current vehicle position.
+
+        Returns:
+            tuple: position tuple with 3 values
+        """
         return __orange__.GetVehiclePosition(self.id)
 
     def equals(self, veh):
+        """Checks if given object IS this object.
+
+        Args:
+            veh (GTAOrange.vehicle.Vehicle): vehicle object
+
+        Returns:
+            bool: True if it is the object, False if it isn't the object
+        """
         if isinstance(veh, Vehicle):
             return self.id == veh.id
         else:
             return False
 
     def on(self, event, cb):
+        """Subscribes for an event only for this vehicle.
+
+        Args:
+            event (string): event name
+            cb (function): callback function
+        """
         if event in self._ehandlers.keys():
             self._ehandlers[event].append(_event.Event(cb))
         else:
@@ -66,18 +144,49 @@ class Vehicle():
             self._ehandlers[event].append(_event.Event(cb))
 
     def trigger(self, event, *args):
+        """Triggers an event for the event handlers subscribing to this specific vehicle.
+
+        Args:
+            event (string): event name
+            *args: arguments
+        """
         if event in self._ehandlers.keys():
             for handler in self._ehandlers[event]:
                 handler.getCallback()(self, *args)
 
 
 def create(model, x, y, z, h):
+    """Creates a new vehicle.
+
+    This is the right way to spawn a new vehicle.
+
+    Args:
+        model (str OR int): model name OR hash
+        x (float): x-coord
+        y (float): y-coord
+        z (float): z-coord
+        h (float): heading
+
+    Returns:
+        GTAOrange.vehicle.Vehicle: vehicle object
+    """
     veh = Vehicle(__orange__.CreateVehicle(model, x, y, z, h))
     __pool[veh.id] = veh
     return veh
 
 
 def deleteByID(id):
+    """Deletes a vehicle object by the given id.
+
+    Args:
+        id (int): vehicle id
+
+    Returns:
+        bool: True on success, False on failure
+
+    Raises:
+        TypeError: raises if vehicle id is not int
+    """
     global __pool
 
     if isinstance(id, int):
@@ -91,11 +200,32 @@ def deleteByID(id):
 
 
 def exists(id):
+    """Checks if a vehicle with the given id exists internally.
+
+    TODO: Unimplemented atm.
+
+    Args:
+        id (int): vehicle id
+
+    Returns:
+        bool: True on yes, False on no
+    """
     # return __orange__.VehicleExists(id)
     return True
 
 
 def getByID(id):
+    """Returns vehicle object by given id.
+
+    Args:
+        id (int): vehicle id
+
+    Returns:
+        GTAOrange.vehicle.Vehicle: vehicle object (False on failure)
+
+    Raises:
+        TypeError: raises if vehicle id is not int
+    """
     global __pool
 
     if isinstance(id, int):
@@ -109,10 +239,23 @@ def getByID(id):
 
 
 def getAll():
+    """Returns dictionary with all vehicle objects.
+
+    WARNING! Can cause heavy load on some servers. If you can avoid using it, don't use it!
+
+    Returns:
+        dict: vehicle dictionary
+    """
     return __pool
 
 
 def on(event, cb):
+    """Subscribes for an event for all vehicles.
+
+    Args:
+        event (string): event name
+        cb (function): callback function
+    """
     if event in __ehandlers.keys():
         __ehandlers[event].append(_event.Event(cb))
     else:
@@ -121,6 +264,12 @@ def on(event, cb):
 
 
 def trigger(event, *args):
+    """Triggers an event for all vehicles.
+
+    Args:
+        event (string): event name
+        *args: arguments
+    """
     if event in __ehandlers.keys():
         for handler in __ehandlers[event]:
             handler.getCallback()(*args)
