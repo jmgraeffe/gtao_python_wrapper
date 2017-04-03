@@ -8,7 +8,9 @@ __credits__ = ["GTA Orange team", "Hexaflexagon"]
 __license__ = "MIT License"
 __maintainer__ = "Jon-Mailes Graeffe"
 
+
 def print(message):
     __orange__.Print(message)
+
 
 builtins.print = print
