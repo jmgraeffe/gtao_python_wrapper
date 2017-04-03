@@ -12,6 +12,15 @@ Subscribable built-in events:
 +---------------+-------------------------+------------------------------------+
 | deletion      | ---                     | vehicle (Vehicle)                  |
 +---------------+-------------------------+------------------------------------+
+
+Subscribable events from other core libraries:
++===============+=========================+====================================+
+|     name      | vehicle-local arguments |          global arguments          |
++===============+=========================+====================================+
+| enteredmarker | marker (Marker)         | vehicle (Vehicle), marker (Marker) |
++---------------+-------------------------+------------------------------------+
+| leftmarker    | marker (Marker)         | vehicle (Vehicle), marker (Marker) |
++---------------+-------------------------+------------------------------------+
 """
 import __orange__
 from GTAOrange import world as _world
