@@ -132,8 +132,8 @@ def _onPlayerEntered(player_id, vehicle_id):
 
     trigger("playerentered", player, vehicle)
     vehicle.trigger("playerentered", player)
-    _player.trigger("playerentered", player, vehicle)
-    player.trigger("playerentered", vehicle)
+    _player.trigger("enteredvehicle", player, vehicle)
+    player.trigger("enteredvehicle", vehicle)
 
 
 def _onPlayerLeft(player_id, vehicle_id):
