@@ -1,4 +1,17 @@
 """Python wrapper for GTA Orange's vehicle functions
+
+Subscribable built-in events:
++===============+=========================+====================================+
+|     name      | vehicle-local arguments |          global arguments          |
++===============+=========================+====================================+
+| playerentered | player (Player)         | player (Player), vehicle (Vehicle) |
++---------------+-------------------------+------------------------------------+
+| playerleft    | player (Player)         | player (Player), vehicle (Vehicle) |
++---------------+-------------------------+------------------------------------+
+| creation      | ---                     | vehicle (Vehicle)                  |
++---------------+-------------------------+------------------------------------+
+| deletion      | ---                     | vehicle (Vehicle)                  |
++---------------+-------------------------+------------------------------------+
 """
 import __orange__
 from GTAOrange import world as _world
