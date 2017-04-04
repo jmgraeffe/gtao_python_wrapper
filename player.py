@@ -431,7 +431,7 @@ def getByName(name):
     Returns:
         GTAOrange.player.Player: player object (False on failure)
     """
-    for key, player in __pool.items():
+    for player in __pool.values():
         if player.getName() == name:
             return player
     return False
