@@ -488,6 +488,7 @@ GTAOrange.vehicle.Vehicle	GTAOrange.vehicle.Vehicle-class.html
 GTAOrange.vehicle.Vehicle.on	GTAOrange.vehicle.Vehicle-class.html#on
 GTAOrange.vehicle.Vehicle.distanceTo	GTAOrange.vehicle.Vehicle-class.html#distanceTo
 GTAOrange.vehicle.Vehicle.trigger	GTAOrange.vehicle.Vehicle-class.html#trigger
+GTAOrange.vehicle.Vehicle.getModel	GTAOrange.vehicle.Vehicle-class.html#getModel
 GTAOrange.vehicle.Vehicle.equals	GTAOrange.vehicle.Vehicle-class.html#equals
 GTAOrange.vehicle.Vehicle.getID	GTAOrange.vehicle.Vehicle-class.html#getID
 GTAOrange.vehicle.Vehicle._ehandlers	GTAOrange.vehicle.Vehicle-class.html#_ehandlers
@@ -495,6 +496,7 @@ GTAOrange.vehicle.Vehicle.attachText	GTAOrange.vehicle.Vehicle-class.html#attach
 GTAOrange.vehicle.Vehicle.texts	GTAOrange.vehicle.Vehicle-class.html#texts
 GTAOrange.vehicle.Vehicle.meta	GTAOrange.vehicle.Vehicle-class.html#meta
 GTAOrange.vehicle.Vehicle.getPosition	GTAOrange.vehicle.Vehicle-class.html#getPosition
+GTAOrange.vehicle.Vehicle.model	GTAOrange.vehicle.Vehicle-class.html#model
 GTAOrange.vehicle.Vehicle.attachBlip	GTAOrange.vehicle.Vehicle-class.html#attachBlip
 GTAOrange.vehicle.Vehicle.id	GTAOrange.vehicle.Vehicle-class.html#id
 GTAOrange.vehicle.Vehicle.__init__	GTAOrange.vehicle.Vehicle-class.html#__init__
