@@ -369,7 +369,7 @@ class Player():
             event (string): event name
             *args: arguments
         """
-        __orange__.TriggerClientEvent(self.id, event, *args)
+        __orange__.TriggerClientEvent(self.id, event, list(args))
 
 
 def broadcast(msg, color):
@@ -481,7 +481,7 @@ def triggerClient(event, *args):
         event (string): event name
         *args: arguments
     """
-    __orange__.TriggerClientEvent(-1, event, *args)
+    __orange__.TriggerClientEvent(-1, event, list(args))
 
 
 def _onConnect(player_id, ip):
