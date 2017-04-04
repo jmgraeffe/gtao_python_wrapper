@@ -52,7 +52,7 @@ class Vehicle():
 
     _ehandlers = {}
 
-    def __init__(self, id, model):
+    def __init__(self, id, model=None):
         """Initializes a new Vehicle object.
 
         Args:
@@ -136,7 +136,7 @@ class Vehicle():
         """Returns model string.
 
         Returns:
-            str: model string (e.g. "Burrito")
+            str: model string (e.g. "Burrito") (returns None, when the vehicle wasn't created in Python!)
         """
         return self.model
 
