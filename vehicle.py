@@ -46,18 +46,20 @@ class Vehicle():
         texts (dict): texts added to the vehicle
     """
     id = None
+    model = None
     meta = {}
     texts = {}
 
     _ehandlers = {}
 
-    def __init__(self, id):
+    def __init__(self, id, model):
         """Initializes a new Vehicle object.
 
         Args:
             id (int): vehicle id
         """
         self.id = id
+        self.model = model
 
     def attachBlip(self, name="Vehicle", scale=0.6, color=None, sprite=None):
         """Creates and attaches a blip to the vehicle.
@@ -130,6 +132,14 @@ class Vehicle():
         """
         return self.id
 
+    def getModel(self):
+        """Returns model string.
+
+        Returns:
+            str: model string (e.g. "Burrito")
+        """
+        return self.model
+
     def getPosition(self):
         """Returns current vehicle position.
 
@@ -192,7 +202,7 @@ def create(model, x, y, z, h):
     Returns:
         GTAOrange.vehicle.Vehicle: vehicle object
     """
-    veh = Vehicle(__orange__.CreateVehicle(model, x, y, z, h))
+    veh = Vehicle(__orange__.CreateVehicle(model, x, y, z, h), model)
     __pool[veh.id] = veh
 
     trigger("creation", veh)
