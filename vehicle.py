@@ -4,9 +4,9 @@ Subscribable built-in events:
 +===============+=========================+====================================+
 |     name      | vehicle-local arguments |          global arguments          |
 +===============+=========================+====================================+
-| playerentered | player (Player)         | player (Player), vehicle (Vehicle) |
+| playerentered | player (Player)         | vehicle (Vehicle), player (Player) |
 +---------------+-------------------------+------------------------------------+
-| playerleft    | player (Player)         | player (Player), vehicle (Vehicle) |
+| playerleft    | player (Player)         | vehicle (Vehicle), player (Player) |
 +---------------+-------------------------+------------------------------------+
 | creation      | ---                     | vehicle (Vehicle)                  |
 +---------------+-------------------------+------------------------------------+
